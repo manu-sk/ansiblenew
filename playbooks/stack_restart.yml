@@ -1,0 +1,22 @@
+# Stop and Restart the stack
+---
+  - hosts: loadbalancer
+    become: true
+    gather_facts: false
+    tasks:
+      - name: ensure nginx restarted
+        service: name=nginx  state=restarted
+
+  - hosts: webserver
+    become: true
+    gather_facts: false
+    tasks:
+      - name: ensure apache2 restarted
+        service: name=apache2  state=restarted
+
+  # Restart mysql		
+  - hosts: database
+    become: true
+    tasks:
+      - name: ensure mysql restarted
+        service: name=mysql  state=restarted
